@@ -41,29 +41,28 @@ router.delete('/api/students/:id', async (req, res) => {
 })
 
 
-// Get data game and save HISTORY in child ID
-router.post('/api/history', async (req, res) => {
-    const getGameData = req.body
-    const newGameData = new History(getGameData)
-    try {
-        const gameData = await newGameData.save();
-        res.json({ success: true, payload: `${gameData} is added to Histories` })
-    } catch (error) {
-        res.json({ success: false, payload: error })
-    }
-})
+// POST HISTORY AND GET HISTORY
+router.route('/api/history')
+    .get(async (req, res) => {
+        try {
+            //const { student } = req.query // const student = req.query.student
+            const data = await History.find(req.query).exec()
+            res.json({ success: true, payload: data })
+        } catch (error) {
+            res.json({ success: false, payload: error })
+        }
+    })
+    .post(async (req, res) => {
+        try {
+            const getGameData = req.body
+            const newGameData = new History(getGameData)
+            const gameData = await newGameData.save();
+            res.json({ success: true, payload: `${gameData} is added to Histories` })
+        } catch (error) {
+            res.json({ success: false, payload: error })
+        }
+    })
 
-
-// Find One Child and display his history (POPULATE)
-router.get('/api/history', async (req, res) => {
-    try {
-        //const { student } = req.query // const student = req.query.student
-        const data = await History.find(req.query).exec()
-        res.json({ success: true, payload: data })
-    } catch (error) {
-        res.json({ success: false, payload: error })
-    }
-})
 
 
 module.exports = router
