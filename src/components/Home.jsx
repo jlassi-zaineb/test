@@ -6,7 +6,7 @@ import { logout, setting, student } from '../assets/icons'
 
 function Home() {
     return (
-        <Container className="text-center">
+        <Container className="text-center mt-5">
 
             <Row>
 
@@ -18,11 +18,6 @@ function Home() {
                 <Col>
                     <Link to="/students">{student}</Link>
                     <h3>Elèves</h3>
-                </Col>
-
-                <Col>
-                    <Link to="/settings">{setting}</Link>
-                    <h3>Paramètres</h3>
                 </Col>
 
             </Row>

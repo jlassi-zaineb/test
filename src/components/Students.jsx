@@ -1,18 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import AddStudent from './AddStudent';
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Table } from 'react-bootstrap'
-import { house } from '../assets/icons'
+import { house, clipboard } from '../assets/icons'
 
 function Students() {
+    const [students, setStudents] = useState([])
 
-    // Ici un fetch vers Db pour recupérer les prenoms et faire un map en bas
-    
+
+    const refreshData = () => {
+        const url = '/api/students'
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setStudents(data))
+    }
+
+    useEffect(() => {
+        refreshData()
+    }, [])
+
+
     return (
         <Container>
-            <Row>
-                <Link to="/" > {house}</Link>
+            <Link to="/" > {house} </Link>
 
-                <Col md={{ span: 6, offset: 3 }}>
+            <Row className="mt-5">
+                <Col>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -22,17 +35,21 @@ function Students() {
                         </thead>
                         {/* Les noms seront apportés via la base de donnée */}
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Pierre</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Julie</td>
-                            </tr>
+                            {students.map((kid, index) => {
+                                return <tr key={index}>
+                                    <td>
+                                        <Link to={`/dashbord/${kid._id}`}> {clipboard}</Link></td>
+                                    <td>{kid.name}</td>
+                                </tr>
+                            })}
                         </tbody>
                     </Table>
                 </Col>
+
+                <Col>
+                    <AddStudent />
+                </Col>
+
             </Row>
 
         </Container>
