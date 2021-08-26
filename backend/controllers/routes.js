@@ -33,20 +33,21 @@ router.delete('/api/students/:id', async (req, res) => {
     try {
         const studentToDelete = req.params.id
         await Student.deleteOne({ _id: studentToDelete }).exec()
+        await History.deleteMany({ student: studentToDelete }).exec()
         res.json({ success: true, payload: `${studentToDelete} Got a DELETE request !` })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ success: false, payload: error })
+        res.status(500).json({ success: false, payload: error.message })
     }
 })
-
 
 // POST HISTORY AND GET HISTORY
 router.route('/api/history')
     .get(async (req, res) => {
         try {
             //const { student } = req.query // const student = req.query.student
-            const data = await History.find(req.query).exec()
+
+            const data = await History.find(req.query).populate('student').exec()
             res.json({ success: true, payload: data })
         } catch (error) {
             res.json({ success: false, payload: error })

@@ -15,7 +15,7 @@ const teacherSchema = Schema({
 // LES NOMS ET LES NIVEAUX DE JEU
 const gameSchema = Schema({
     name: String,
-    level: String,
+    levelMax: Number,
     created: {
         type: Date,
         default: Date.now
@@ -24,10 +24,11 @@ const gameSchema = Schema({
 
 // MODEL HISTORIQUE JEU PAR ENFANT
 const historySchema = Schema({
-    game_id: Object, // Populate from game (recupère le niveau avec)
+    game_id: Object,
+    level: Number,
     student: {
         type: Schema.Types.ObjectId,
-        ref: 'students'
+        ref: 'student'
     },
     duration: Number,
     status: {
@@ -43,7 +44,7 @@ const historySchema = Schema({
 // MODEL PAR ENFANT + REF A SON HISTORIQUE
 const studentSchema = Schema({
     name: String,
-    classroom: [{ type: Schema.Types.ObjectId, ref: 'Teachers' }],
+    classroom: [{ type: Schema.Types.ObjectId, ref: 'teacher' }],
     created: {
         type: Date,
         default: Date.now
