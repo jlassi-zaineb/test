@@ -22,7 +22,7 @@ function Students() {
 
 
     return (
-        <Container>
+        <Container className="text-center mt-5">
             <Link to="/" > {house} </Link>
 
             <Row className="mt-5">
@@ -44,7 +44,7 @@ function Students() {
                                     <td><Link to={`/dashboard/${kid._id}`}> {clipboard}</Link></td>
                                     <td>
                                         <>
-                                            <Link variant="primary" onClick={() => setModalShow(true)}>
+                                            <Link variant="primary" to="" onClick={() => setModalShow(true)}>
                                                 {play}
                                             </Link>
 
@@ -86,9 +86,14 @@ function ModalChooseLevel(props) {
             </Modal.Header>
             <Modal.Body>
                 <Row className="text-center">
-                    <Col><Button href="#">Niveau 1</Button></Col>
-                    <Col><Button href="#">Niveau 2</Button></Col>
-                    <Col><Button href="#">Niveau 3</Button></Col>
+                    {/* --------------ACCES JEU 1 NIVEAU 1-------------- */}
+                    <Col><Button variant="outline-primary">
+                        <Link to="/TouchGameLevelOne" style={{ textDecoration: 'none', color:'black' }}>Niveau 1</Link>
+                    </Button></Col>
+                    {/* --------------ACCES JEU 1 NIVEAU 2-------------- */}
+                    <Col><Button variant="outline-primary" disabled>Niveau 2</Button></Col>
+                    {/* --------------ACCES JEU 1 NIVEAU 3-------------- */}
+                    <Col><Button variant="outline-primary" disabled>Niveau 3</Button></Col>
                 </Row>
             </Modal.Body>
             <Modal.Footer>

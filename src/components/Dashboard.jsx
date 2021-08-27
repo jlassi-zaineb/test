@@ -21,11 +21,109 @@ function Dashboard() {
     console.log(historyData)
     //fetch History
     const getHistory = () => {
-        const url = (`/api/history?student=${params.id}`)
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setHistoryData(data.payload))
+        // const url = (`/api/history?student=${params.id}`)
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => setHistoryData(data.payload))
+        setHistoryData(
+            [
+                [
+                    {
+                        "_id": "612762a4b8a2871e9445953b",
+                        "level": 1,
+                        "student": {
+                            "classroom": [],
+                            "_id": "612654df19fc3e20bc913cfe",
+                            "name": "kids",
+                            "created": "2021-08-25T14:34:07.753Z",
+                            "__v": 0
+                        },
+                        "duration": 2000,
+                        "status": "FAILED",
+                        "created": "2021-08-26T09:45:08.906Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "612762b3b8a2871e9445953d",
+                        "level": 1,
+                        "student": {
+                            "classroom": [],
+                            "_id": "612654df19fc3e20bc913cfe",
+                            "name": "kids",
+                            "created": "2021-08-25T14:34:07.753Z",
+                            "__v": 0
+                        },
+                        "duration": 1000,
+                        "status": "PARTIAL",
+                        "created": "2021-08-26T09:45:23.816Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "612762bab8a2871e9445953f",
+                        "level": 1,
+                        "student": {
+                            "classroom": [],
+                            "_id": "612654df19fc3e20bc913cfe",
+                            "name": "kids",
+                            "created": "2021-08-25T14:34:07.753Z",
+                            "__v": 0
+                        },
+                        "duration": 2000,
+                        "status": "PARTIAL",
+                        "created": "2021-08-26T09:45:30.355Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "6127630fb8a2871e94459541",
+                        "level": 1,
+                        "student": {
+                            "classroom": [],
+                            "_id": "612654df19fc3e20bc913cfe",
+                            "name": "kids",
+                            "created": "2021-08-25T14:34:07.753Z",
+                            "__v": 0
+                        },
+                        "duration": 5000,
+                        "status": "SUCCESS",
+                        "created": "2021-08-26T09:46:55.516Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "612791eab8a2871e94459729",
+                        "level": 1,
+                        "student": {
+                            "classroom": [],
+                            "_id": "612654df19fc3e20bc913cfe",
+                            "name": "kids",
+                            "created": "2021-08-25T14:34:07.753Z",
+                            "__v": 0
+                        },
+                        "duration": 1000,
+                        "status": "FAILED",
+                        "created": "2021-08-26T13:06:50.221Z",
+                        "__v": 0
+                    }
+                ],
+                [
+                    {
+                        "_id": "6127a0f8b8a2871e944597e1",
+                        "level": 1,
+                        "student": {
+                            "classroom": [],
+                            "_id": "612654df19fc3e20bc913cfe",
+                            "name": "kids",
+                            "created": "2021-08-25T14:34:07.753Z",
+                            "__v": 0
+                        },
+                        "duration": 6000,
+                        "status": "SUCCESS",
+                        "created": "2020-01-30T14:11:04.335Z",
+                        "__v": 0
+                    }
+                ]
+            ])
     }
+    
     //récupération de l'historique et l'afficher en bas
     useEffect(() => {
         getHistory()
@@ -49,35 +147,10 @@ function Dashboard() {
         }, [history, params]
     )
 
-    // const checkDate = useCallback(
-    //     () => {
-    //         let dateArray = []
-
-    //         let len = historyData.length
-
-    //         for (let i = 0; i < len; i++) {
-    //             let hist = historyData[i].created
-    //             let date = new Date(hist);
-    //             let dd = String(date.getDate()).padStart(2, '0');
-    //             let mm = String(date.getMonth() + 1).padStart(2, '0');
-    //             let yyyy = date.getFullYear();
-    //             date = dd + '/' + mm + '/' + yyyy;
-
-    //             if (dateArray.indexOf(hist[i]) === -1) {
-    //                 dateArray.push(hist[i])
-    //                 console.log(dateArray)
-    //             }
-    //         }
-
-    //         return checkDate
-    //     },
-    //     [historyData],
-    // )
-
 
     return (
 
-        <Container className="mt-5">
+        <Container className="text-center mt-5">
 
             <Row>
                 {/* LINK RETOUR EN ARRIERE */}
@@ -94,6 +167,9 @@ function Dashboard() {
             {/* TABLEAU DE BORD */}
             <Row className="mt-5">
                 <Col> <h5>Tableau de bord</h5> </Col>
+                {/* {
+                    historyData[0]?.student.name
+                } */}
             </Row>
             <hr></hr>
 
@@ -103,6 +179,7 @@ function Dashboard() {
                         <tbody>
                             <tr>
                                 <th scope="row">
+
                                     {
                                         historyData.map((data, index) => {
 
@@ -111,11 +188,14 @@ function Dashboard() {
                                             let mm = String(date.getMonth() + 1).padStart(2, '0');
                                             let yyyy = date.getFullYear();
                                             date = dd + '/' + mm + '/' + yyyy;
+
                                             return <p key={index}>{date}</p>
+
                                         })
                                     }
+
                                 </th>
-                                <td className="d-flex">
+                                <td className="">
                                     {
                                         historyData.map((data, index) => {
 
@@ -140,9 +220,6 @@ function Dashboard() {
                     </table>
                 </Col>
             </Row>
-
-
-
         </Container >
     )
 }
